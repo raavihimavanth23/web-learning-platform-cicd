@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/teacher-dashboard.css') }}">
+    <title>Student-Teacher Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .button-link {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            text-decoration: none;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button-link:hover {
+            background-color: #555;
+        }
+
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .login-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Student-Teacher Portal</h1>
+    </header>
+    <div class="container">
+        <div class="login-container">
+            <h2>Welcome to the Student-Teacher Portal</h2>
+            <a href="{{ url_for('signup') }}" class="button-link">Signup</a>
+        </div>
+        <div class="login-container">
+            <h2>Welcome to the Student-Teacher Portal</h2>
+            <a href="{{ url_for('login') }}" class="button-link">Login</a>
+        </div>
+        <div id="content" style="display: none;">
+            <h2>Welcome, <span id="user-name"></span>!</h2>
+            <p>Role: <span id="user-role"></span></p>
+            <p>Profile Info: <span id="profile-info"></span></p>
+        </div>
+    </div>
+
+    <script>
+    </script>
+</body>
+
+</html>

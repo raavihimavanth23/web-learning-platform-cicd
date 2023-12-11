@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='teacher-dashboard.css') }}">
+    <title>Upload Assignments</title>
+</head>
+<body>
+    <header>
+        <h1>Student Dashboard</h1>
+    </header>
+    <div class="dashboard">
+        <div class="sidebar">
+            <ul>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('upload_assignments') }}">Upload Assignments</a></li>
+                <li><a href="{{ url_for('download_materials') }}">Download Materials</a></li>
+            </ul>
+        </div>
+        <div class="content" style="margin-left: 20%;">
+            <h2>Upload Assignments</h2>
+            <form id="upload-form">
+                <input type="file" id="file-input" accept=".pdf, .doc, .docx"><br><br>
+                <button type="submit" class="btn">Upload</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const uploadForm = document.getElementById('upload-form');
+
+            uploadForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const file = document.getElementById('file-input').files[0];
+
+                if (!file) {
+                    alert('Please select a file to upload.');
+                    return;
+                }
+
+                // Simulate the file upload process, replace with actual logic
+                alert(`File ${file.name} uploaded successfully!`);
+                uploadForm.reset();
+            });
+        });
+    </script>
+</body>
+</html>

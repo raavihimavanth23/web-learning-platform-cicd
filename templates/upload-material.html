@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Study Material</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='teacher-dashboard.css') }}">
+</head>
+
+<body>
+    <header>
+        <h1>Teacher Dashboard</h1>
+    </header>
+    <div class="dashboard">
+        <div class="sidebar">
+            <ul>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('upload_material') }}">Upload Study Material</a></li>
+                <li><a href="{{ url_for('view_student_uploads') }}">View Student Uploads</a></li>
+            </ul>
+        </div>
+        <div class="content" style="margin-left: 20%;">
+            <h2>Upload Study Material</h2>
+            <p>Number of Assignments Uploaded: <span id="assignment-count">0</span></p>
+            <form id="upload-form">
+                <input type="file" id="file-input" accept=".pdf, .doc, .docx"><br><br>
+                <button type="submit" class="btn">Upload</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const uploadForm = document.getElementById('upload-form');
+            const fileInput = document.getElementById('file-input');
+            const assignmentCount = document.getElementById('assignment-count');
+
+            // Initialize assignment count from localStorage
+            let currentAssignmentCount = parseInt(localStorage.getItem('assignmentCount')) || 0;
+            assignmentCount.textContent = currentAssignmentCount;
+
+            uploadForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const file = fileInput.files[0];
+                if (!file) {
+                    alert('Please select a file to upload.');
+                    return;
+                }
+
+                // Get the uploaded materials array from local storage, or initialize it if it doesn't exist.
+                const uploadedMaterials = JSON.parse(localStorage.getItem('uploadedMaterials')) || [];
+
+                // Create a new material object
+                const fileData = {
+                    name: file.name,
+                    type: file.type,
+                    size: file.size,
+                    date: new Date().toLocaleString(),
+                };
+
+                // Add the new material to the uploadedMaterials array
+                uploadedMaterials.push(fileData);
+
+                // Store the updated array in local storage
+                localStorage.setItem('uploadedMaterials', JSON.stringify(uploadedMaterials));
+
+
+                // Update assignment count and save it to localStorage
+                currentAssignmentCount++;
+                assignmentCount.textContent = currentAssignmentCount;
+                localStorage.setItem('assignmentCount', currentAssignmentCount.toString());
+
+                alert('File uploaded successfully!');
+                uploadForm.reset();
+            });
+        });
+    </script>
+</body>
+
+</html>

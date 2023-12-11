@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='teacher-dashboard.css') }}">
+    <title>Download Materials</title>
+</head>
+<body>
+    <header>
+        <h1>Student Dashboard</h1>
+    </header>
+    <div class="dashboard">
+        <div class="sidebar">
+            <ul>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('upload_assignments') }}">Upload Assignments</a></li>
+                <li><a href="{{ url_for('download_materials') }}">Download Materials</a></li>
+            </ul>
+        </div>
+        <div class="content" style="margin-left: 20%;">
+            <h2>Download Materials</h2>
+            <div id="materials-list">
+                <!-- Display a list of downloadable materials uploaded by the teacher -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const materialsList = document.getElementById('materials-list');
+
+            // Retrieve uploaded materials from local storage
+            const uploadedMaterials = JSON.parse(localStorage.getItem('uploadedMaterials')) || [];
+
+            // Display a list of downloadable materials
+            if (uploadedMaterials.length === 0) {
+                const noMaterialsMessage = document.createElement('p');
+                noMaterialsMessage.textContent = 'No materials available for download.';
+                materialsList.appendChild(noMaterialsMessage);
+            } else {
+                uploadedMaterials.forEach((material, index) => {
+                    const downloadLink = document.createElement('a');
+                    downloadLink.href = `data:application/octet-stream,${encodeURIComponent(JSON.stringify(material))}`;
+                    downloadLink.download = material.name;
+                    downloadLink.textContent = material.name;
+
+                    const listItem = document.createElement('p');
+                    listItem.appendChild(downloadLink);
+                    materialsList.appendChild(listItem);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
