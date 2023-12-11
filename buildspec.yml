@@ -1,0 +1,38 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      java: corretto17        
+      python: 3.11
+    commands:
+      - pip install --upgrade pip
+      # Install dependencies needed for running the static analysis
+      - java --version
+      - pip install -r $CODEBUILD_SRC_DIR/requirements.txt pylint
+      - yum update
+      - yum install -y jq
+      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.0.2747-linux.zip
+      - unzip ./sonar-scanner-cli-4.7.0.2747-linux.zip
+      - export PATH=$PATH:$PWD/sonar-scanner-4.7.0.2747-linux/bin/
+      - python --version
+  pre_build:
+    commands:
+      #- pylint $CODEBUILD_SRC_DIR/*.py
+      #- pylint $CODEBUILD_SRC_DIR/*/*.py
+      echo "Testing code pre build"
+      - sonar-scanner -Dsonar.organization=BaluThota2012 -Dsonar.projectKey=BaluThota2012_attandance-test -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=cc5737139aa079a6e7a1d13a825521707a182af2
+      - sleep 5
+      - curl https://sonarcloud.io/api/qualitygates/project_status?projectKey=BaluThota2012_attandance-test > project_status.json
+      - cat project_status.json
+  build:
+    commands:
+      echo "testing code build"
+      - if [[ $(jq -r '.projectStatus.status' project_status.json) = "ERROR" ]] ; then CODEBUILD_BUILD_SUCCEEDING=0; fi
+artifacts:
+  files:
+    - '**/*'
+# eb_codebuild_settings:
+#   aws_beanstalk_application:
+#     name: "test-attandance"
+#   aws_beanstalk_environment:
+#     name: "Test-attandance-env"
