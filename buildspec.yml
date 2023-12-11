@@ -17,10 +17,10 @@ phases:
       - python --version
   pre_build:
     commands:
-      - sonar-scanner -Dsonar.organization=BaluThota2012 -Dsonar.projectKey=BaluThota2012_attandance-test -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=cc5737139aa079a6e7a1d13a825521707a182af2
-      - sleep 5
-      - curl https://sonarcloud.io/api/qualitygates/project_status?projectKey=BaluThota2012_attandance-test > project_status.json
-      - cat project_status.json
+      # - sonar-scanner -Dsonar.organization=BaluThota2012 -Dsonar.projectKey=BaluThota2012_attandance-test -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=cc5737139aa079a6e7a1d13a825521707a182af2
+      # - sleep 5
+      # - curl https://sonarcloud.io/api/qualitygates/project_status?projectKey=BaluThota2012_attandance-test > project_status.json
+      # - cat project_status.json
   build:
     commands:
      # - if [[ $(jq -r '.projectStatus.status' project_status.json) = "ERROR" ]] ; then CODEBUILD_BUILD_SUCCEEDING=0; fi
