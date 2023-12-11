@@ -17,7 +17,7 @@ phases:
       - python --version
   pre_build:
     commands:
-      - sonar-scanner -Dsonar.organization=raavihimavanth23 -Dsonar.projectKey=raavihimavanth23_web-learning-platform-cicd -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=77569170f61fe208d1eb3dece0f6436ec7dc0e14
+      # - sonar-scanner -Dsonar.organization=raavihimavanth23 -Dsonar.projectKey=raavihimavanth23_web-learning-platform-cicd -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=77569170f61fe208d1eb3dece0f6436ec7dc0e14
       - sleep 5
       - curl https://sonarcloud.io/api/qualitygates/project_status?projectKey=raavihimavanth23_web-learning-platform-cicd > project_status.json
       - cat project_status.json
