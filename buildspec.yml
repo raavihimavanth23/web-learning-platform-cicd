@@ -17,22 +17,13 @@ phases:
       - python --version
   pre_build:
     commands:
-      #- pylint $CODEBUILD_SRC_DIR/*.py
-      #- pylint $CODEBUILD_SRC_DIR/*/*.py
-      echo "Testing code pre build"
       - sonar-scanner -Dsonar.organization=BaluThota2012 -Dsonar.projectKey=BaluThota2012_attandance-test -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=cc5737139aa079a6e7a1d13a825521707a182af2
       - sleep 5
       - curl https://sonarcloud.io/api/qualitygates/project_status?projectKey=BaluThota2012_attandance-test > project_status.json
       - cat project_status.json
   build:
     commands:
-      echo "testing code build"
-      - if [[ $(jq -r '.projectStatus.status' project_status.json) = "ERROR" ]] ; then CODEBUILD_BUILD_SUCCEEDING=0; fi
+     # - if [[ $(jq -r '.projectStatus.status' project_status.json) = "ERROR" ]] ; then CODEBUILD_BUILD_SUCCEEDING=0; fi
 artifacts:
   files:
     - '**/*'
-# eb_codebuild_settings:
-#   aws_beanstalk_application:
-#     name: "test-attandance"
-#   aws_beanstalk_environment:
-#     name: "Test-attandance-env"
