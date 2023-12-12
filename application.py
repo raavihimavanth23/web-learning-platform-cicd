@@ -5,7 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 application = app = Flask(__name__)
 app.config['SECRET_KEY'] = '1234'
-DATABASE = 'site.db'
+DATABASE = 'db.sqlite3'
 
 def connect_db():
     return sqlite3.connect(DATABASE)
