@@ -5,7 +5,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 application = app = Flask(__name__)
 app.config['SECRET_KEY'] = '1234'
-DATABASE = 'db.sqlite3'
+BASE_DIR = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
+DATABASE = os.path.join(BASE_DIR,'site.db')
+print('database:----', DATABASE)
 
 def connect_db():
     return sqlite3.connect(DATABASE)
